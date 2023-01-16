@@ -1,0 +1,70 @@
+<html>
+   <head>
+      <title>
+         Menú dinámico de marcas
+      </title>
+      <meta charset="UTF-8">
+      <!--Cargamos el archivo javascript-->
+      <script src="marcas.js" language="javascript" type="text/javascript">
+         <!--
+
+         //-->
+      </script>
+
+      <script language="javascript">
+         <!--
+
+            function mostrarModelos()
+            {
+               //Si el tamaño de menuModelo es mayor que uno
+               if (fMarcas.menuModelo.length>1)
+               {
+                  totalModelo = fMarcas.menuModelo.length;
+                  for (contador=1; contador<totalModelo; contador++)
+                  {
+                     fMarcas.menuModelo.options[1]=null;
+                  }
+
+               }
+
+
+               //si el valor cargado de menuMarcas es X el select de los modelos continuará deshabilitado
+               if (fMarcas.menuMarcas.value == "x")
+               {
+                  fMarcas.menuModelo.selectedItem = 0;
+                  fMarcas.menuModelo.disabled = true;
+               } else {
+                  //matrizElegida tendrá el valor matriz y se le concatena el valor que tiene la 
+                  //marca en el select (que será el nombre de la matriz que va a cargar)
+                  matrizElegida = "matriz" + fMarcas.menuMarcas.value;
+                  for (contador = 0; contador<eval(matrizElegida).length; contador++)
+                  {
+                     //recorremos el array elegido y creamos un option con cada elemento
+                     fMarcas.menuModelo.options[contador+1] = new Option (eval(matrizElegida)[contador],contador+1);
+                  }
+                  //se activa el select en el que se muestran los modelos.
+                  fMarcas.menuModelo.disabled = false;
+               }
+            }
+         //-->
+      </script>
+   </head>
+   <body>
+      <form name="fMarcas">
+         <!--Select que muestra las marcas de coches que cuando cambia de valor carga la función mostrarModelos-->
+         <select name="menuMarcas" onChange="mostrarModelos();">
+            <option value="x">ELIJA UNA MARCA</option>
+            <option value="01">Citroen</option>
+            <option value="02">Peugeot</option>
+            <option value="03">Renault</option>
+            <option value="04">Seat</option>
+         </select>
+
+         <!--Select que va a cargar los distintos modelos de cada marca-->
+         <select name="menuModelo" disabled>
+            <option value=0>TODAS LAS MARCAS</option>
+         </select>
+
+      </form>
+   </body>
+</html>
